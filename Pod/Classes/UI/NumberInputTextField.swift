@@ -11,7 +11,7 @@ import UIKit
 /**
  This kind of text field only allows entering card numbers and provides means to customize the appearance of entered card numbers by changing the card number group separator.
  */
-@IBDesignable
+@IBDesignplacehable
 public class NumberInputTextField: StylizedTextField {
 
     // MARK: - Variables
@@ -46,9 +46,10 @@ public class NumberInputTextField: StylizedTextField {
             }
 
             let isUnformatted = (placeholder == self.cardNumberFormatter.unformattedCardNumber(placeholder))
-        
-            // Format the placeholder, if not already done
-            if isUnformatted && cardNumberSeparator != "" {
+            let isCreditString = (placeholder.rangeOfCharacterFromSet(NSCharacterSet(charactersInString: "0123456789\(self.cardNumberFormatter.separator)").invertedSet) == nil)
+            
+            // If this is a Credit Card placeholder and wasn't already formatted, format it
+            if isCreditString && isUnformatted && cardNumberSeparator != "" {
                 self.placeholder = cardNumberFormatter.formattedCardNumber(placeholder)
             }
         }
